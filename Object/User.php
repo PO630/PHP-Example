@@ -11,8 +11,6 @@
 */
 //===============================================================//
 
-require '../Manager/connect.php';
-
 // Hash key 
 define('DB_USER_HASH_KEY'    , 'DeusEx');
 

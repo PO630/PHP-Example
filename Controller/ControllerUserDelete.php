@@ -13,8 +13,7 @@
 */
 //===============================================================//
 
-require '../Manager/connect.php';
-$con = mysql_connect();
+require '../Service/UserService.php';
 
 if( empty($_GET['id']) )
 {
@@ -22,17 +21,12 @@ if( empty($_GET['id']) )
     return http_response_code(400);
 }
 
-// Query delete by id .
-$sql = 'DELETE FROM user WHERE id_user = '.$_GET['id'].''  ;
-
-if( !mysqli_query($con, $sql) )
+if( !deleteUserById($_GET['id']) )
 {
     // Echec pour la recherche sql 
     return http_response_code(422);
 }
 
-// Close connection 
-$con = null ;
 // Sucess request end code 204 
 return http_response_code(204);
 

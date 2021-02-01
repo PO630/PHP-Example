@@ -13,16 +13,14 @@
 */
 //===============================================================//
 
-require '../Manager/connect.php';
-
-$con = mysql_connect();
+require '../Service/UserService.php';
 
 //===============================================================//
 
 // Pagination required 
 
 // get offset
-if( empty($_GET['offset']) )
+if( empty($_GET['offset']) || $_GET['offset'] < 0 )
 {
     $offset = 0 ;
 }
@@ -31,52 +29,43 @@ else
     $offset = $_GET['offset'] ;
 }
 
-// get limite
-if( empty($_GET['limite']) )
+// get limit
+if( empty($_GET['limit']) || $_GET['limit'] < 1 )
 {
-    $limite = 10 ;
+    $limit = 10 ;
 }
 else
 {
-    $limite = $_GET['limite'] ;
+    $limit = $_GET['limit'] ;
 }
 
 //===============================================================//
 
-// Query qui renvoie les informations sur les utilisateurs avec pagination.
-$sql = "SELECT * FROM user ORDER BY id_user LIMIT {$limite}  OFFSET {$offset} ;" ;
-// Query qui renvoie le nombre total d'utilisateurs.
-$sql_count = "SELECT COUNT(*) as total FROM user ;" ;
-
 $userList = [];
-if( $result = mysqli_query($con,$sql) )
+if( $result = getUserArray( $offset , $limit ) )
 {
   $cr = 0;
-  while($row = mysqli_fetch_assoc($result))
+  foreach( $result as $row )
   {
-    $userList[$cr]['id_user']       = $row['id_user'];
-    $userList[$cr]['name_user']     = $row['name_user'];
-    $userList[$cr]['email_user']    = $row['email_user'];
-    $userList[$cr]['avatar_user']   = $row['avatar_user'];
+    $userList[$cr]['id']       = $row->getId();
+    $userList[$cr]['name']     = $row->getName();
+    $userList[$cr]['email']    = $row->getEmail();
+    $userList[$cr]['avatar']   = $row->getAvatar();
     $cr++;
   }
 
   // le nombre total d'article
-  $count = (int) mysqli_fetch_assoc(mysqli_query($con,$sql_count))['total'] ;
+  $count = countUser() ;
   // le nombre de page observable
-  $pages = (int) ceil($count/$limite);
+  $pages = (int) ceil($count/$limit);
   // renvoie d'un json 
   header("Content-Type: application/json;charset=utf-8");
-  echo json_encode( [ 'offset'=>$offset , 'limite'=>$limite , 'total'=>$count , 'pages'=>$pages , 'userList'=>$userList ] );
+  echo json_encode( [ 'offset'=>$offset , 'limit'=>$limit , 'total'=>$count , 'pages'=>$pages , 'userList'=>$userList ] );
 }
 else
 {
   http_response_code(400);
 }
-
-// Close connection 
-$con = null ;
-
 
 //===============================================================//
 
