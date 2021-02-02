@@ -11,13 +11,48 @@
 */
 //===============================================================//
 
+require '../SqlGateOrm/OrmClass.php';
+
 // Hash key 
 define('DB_USER_HASH_KEY'    , 'DeusEx');
 
-class User
+class User extends OrmClass
 {
+    //------------------------------------------------------------------//
+
+    // Orm link database
+
+    public function _table()
+    {
+        return "user" ;
+    }
+
+    public function _tableRow()
+    {
+        return [    "id_user"       , "name_user" ,
+                    "password_user" , "email_user" ,
+                    "avatar_user"   , "last_connexion_user" ,
+                    "ban_user" 
+                ] ;
+    }
+
+    public function _classRow()
+    {
+        return [    $this->id_user          , $this->name_user ,
+                    $this->password_user    , $this->email_user ,
+                    $this->avatar_user      , $this->last_connexion_user ,
+                    $this->ban_user
+                ] ;
+    }
+
+    public function _primaryKey()
+    {
+        return "id_user" ;
+    }
 
     //------------------------------------------------------------------//
+
+    // Attribut
 
     private $id_user ;
     private $name_user ;

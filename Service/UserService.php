@@ -14,6 +14,10 @@
 require '../Manager/connect.php';
 require '../Object/User.php' ;
 
+//_______________________________________________________________//
+
+// Service gestion utilisateur
+
 function getUserById( $id )
 {
     $pdo = PDO_connect() ;
@@ -57,6 +61,33 @@ function countUser()
     $count = (int) mysqli_fetch_assoc(mysqli_query($con,$sql_count))['total'] ;
     $con = null ;
     return $count ;
+}
+
+function updateUser( $user )
+{
+    $pdo = PDO_connect() ;
+    $sql = "SELECT * FROM user WHERE id_user = ".$user->getId()." " ;
+
+    // TO DO : orm 
+
+    $pdo = null ;
+    return 0;
+}
+
+//_______________________________________________________________//
+
+// Service connection utilisateur
+
+function ConnectUser( $emailUser , $passwordUser )
+{
+    foreach( getAllUserArray() as $userRow )
+    {
+        if( $userRow->is_password($passwordUser) && $userRow->is_email( $emailUser ) )
+        {
+            return true ;
+        }
+    }
+    return false ;
 }
 
 
