@@ -22,6 +22,20 @@ class User extends OrmClass
 
     // Orm link database
 
+    public function _class()
+    {
+        return "User" ;
+    }
+
+    public function _classRow()
+    {
+        return [    $this->id_user          , $this->name_user ,
+                    $this->password_user    , $this->email_user ,
+                    $this->avatar_user      , $this->last_connexion_user ,
+                    $this->ban_user
+                ] ;
+    }
+
     public function _table()
     {
         return "user" ;
@@ -36,15 +50,6 @@ class User extends OrmClass
                 ] ;
     }
 
-    public function _classRow()
-    {
-        return [    $this->id_user          , $this->name_user ,
-                    $this->password_user    , $this->email_user ,
-                    $this->avatar_user      , $this->last_connexion_user ,
-                    $this->ban_user
-                ] ;
-    }
-
     public function _primaryKey()
     {
         return "id_user" ;
@@ -54,13 +59,13 @@ class User extends OrmClass
 
     // Attribut
 
-    private $id_user ;
+    private $id_user = 0 ;
     private $name_user ;
     private $password_user ;
     private $email_user ;
-    private $avatar_user ;
+    private $avatar_user = "defaultAvatar.png";
     private $last_connexion_user ;
-    private $ban_user ;
+    private $ban_user = 0 ;
 
     //------------------------------------------------------------------//
 

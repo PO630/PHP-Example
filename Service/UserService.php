@@ -18,61 +18,79 @@ require '../Object/User.php' ;
 
 // Service gestion utilisateur
 
-function getUserById( $id )
-{
-    $pdo = PDO_connect() ;
-    $sql = "SELECT * FROM user WHERE id_user = ".$id." " ;
-    $user = $pdo->query($sql)->fetchObject('User');
-    $pdo = null ;
-    return $user ;
-}
-
-function deleteUserById( $id )
+function newIdUser()
 {
     $con = mysql_connect();
-    $sql = 'DELETE FROM user WHERE id_user = '.$_GET['id'].' '  ;
-    $result = mysqli_query($con, $sql);
+    $user = new User() ;
+    $newID = $user->newId( $con ) ;
     $con = null ;
-    return $result ;
-}
-
-function getAllUserArray()
-{
-    $pdo = PDO_connect() ;
-    $sql = "SELECT * FROM user" ;
-    $users = $pdo->query($sql)->fetchAll(PDO::FETCH_CLASS, 'User');
-    $pdo = null ;
-    return $users ;
-}
-
-function getUserArray( $offset , $limit )
-{
-    $pdo = PDO_connect() ;
-    $sql = "SELECT * FROM user LIMIT {$limit}  OFFSET {$offset} " ;
-    $users = $pdo->query($sql)->fetchAll(PDO::FETCH_CLASS, 'User');
-    $pdo = null ;
-    return $users ;
+    return $newID ;
 }
 
 function countUser()
 {
     $con = mysql_connect();
-    $sql_count = "SELECT COUNT(*) as total FROM user " ;
-    $count = (int) mysqli_fetch_assoc(mysqli_query($con,$sql_count))['total'] ;
+    $user = new User() ;
+    $count = $user->count( $con ) ;
     $con = null ;
     return $count ;
+}
+
+function findUser( $id )
+{
+    $pdo = PDO_connect() ;
+    $user = new User() ;
+    $user = $user->find( $pdo , $id ) ;
+    $pdo = null ;
+    return $user ;
+}
+
+function findAllUser()
+{
+    $pdo = PDO_connect() ;
+    $user = new User() ;
+    $users = $user->findAll( $pdo ) ;
+    $pdo = null ;
+    return $users ;
+}
+
+function findArrayUser( $offset , $limit )
+{
+    $pdo = PDO_connect() ;
+    $user = new User() ;
+    $users = $user->findArray( $pdo , $offset , $limit ) ;
+    $pdo = null ;
+    return $users ;
+}
+
+//_______________________________________________________________//
+
+function deleteUserById( $id )
+{
+    $con = mysql_connect();
+    $user = new User() ;
+    $result = $user->delete( $con , $id ) ;
+    $con = null ;
+    return $result ;
 }
 
 function updateUser( $user )
 {
     $pdo = PDO_connect() ;
-    $sql = "SELECT * FROM user WHERE id_user = ".$user->getId()." " ;
-
-    // TO DO : orm 
-
+    $user->update( $pdo , $user->getId() ) ;
     $pdo = null ;
     return 0;
 }
+
+function insertUser( $user )
+{
+    $pdo = PDO_connect() ;
+    $user->setId( newIdUser() );
+    $user->insert( $pdo ) ;
+    $pdo = null ;
+    return 0;
+}
+
 
 //_______________________________________________________________//
 
@@ -84,10 +102,10 @@ function ConnectUser( $emailUser , $passwordUser )
     {
         if( $userRow->is_password($passwordUser) && $userRow->is_email( $emailUser ) )
         {
-            return true ;
+            return $userRow ;
         }
     }
-    return false ;
+    return null ;
 }
 
 

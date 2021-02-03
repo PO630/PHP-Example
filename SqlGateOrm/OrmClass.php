@@ -11,20 +11,15 @@
 */
 //===============================================================//
 
-class OrmClass
+require "OrmQuery.php" ;
+
+class OrmClass extends OrmQuery
 {
     //------------------------------------------------------------------//
 
-    // Orm link database
-
-    public function _table()
+    public function _class()
     {
-        return "" ;
-    }
-
-    public function _tableRow()
-    {
-        return [] ;
+        return "OrmClass" ;
     }
 
     public function _classRow()
@@ -32,51 +27,60 @@ class OrmClass
         return [] ;
     }
 
-    public function _primaryKey()
+    //------------------------------------------------------------------//
+
+    public function newId( $mysql )
     {
-        return "id" ;
+        // TO DO : set on PDO
+        return (int) mysqli_fetch_assoc( mysqli_query( $mysql , $this->queryNewId() ) )['maxId'] ;
+    }
+
+    public function count( $mysql )
+    {
+        // TO DO : set on PDO
+        return (int) mysqli_fetch_assoc( mysqli_query( $mysql , $this->queryCount() ) )['total'] ;
+    }
+
+    public function find( $pdo , $id )
+    {
+        $classFind = $pdo->query( $this->queryFind($id) )->fetchObject( $this->_class() );
+        return $classFind ;
+    }
+
+    public function findAll( $pdo )
+    {
+        $classArray = $pdo->query( $this->queryGetAll() )->fetchAll( PDO::FETCH_CLASS , $this->_class() );
+        return $classArray ;
+    }
+
+    public function findArray( $pdo , $offset , $limit )
+    {
+        $classArray = $pdo->query( $this->queryGetArray($offset,$limit) )->fetchAll( PDO::FETCH_CLASS , $this->_class() );
+        return $classArray ;
     }
 
     //------------------------------------------------------------------//
 
-    // Query 
-
-    public function queryFind( $_key )
+    public function delete( $mysql , $id )
     {
-        return "SELECT * FROM ".$this->_table()." WHERE ".$this->_primaryKey()." = ".$_key." " ;
+        // TO DO : set on PDO
+        $result = mysqli_query( $mysql , $this->queryDelete( $id ) );
+        return $result ;
     }
 
-    public function queryGetAll()
+    public function update( $pdo , $id )
     {
-        return "SELECT * FROM ".$this->_table()." " ;
+        $result = $pdo->prepare( $this->queryUpdate( $id ) )->execute( $this->_classRow() );
+        return $result ;
     }
 
-    public function queryDelete( $_key )
+    public function insert( $pdo )
     {
-        return "DELETE FROM ".$this->_table()." WHERE ".$this->_primaryKey()." = ".$_key." " ;
+        $result = $pdo->prepare( $this->queryInsert( ) )->execute( $this->_classRow() );
+        return $result ;
     }
 
-    public function querySave( $_key )
-    {
-        $index = 0 ;
-        $sql = "UPDATE ".$this->_table()." SET ";
-        foreach( $this->_tableRow() as $stringRow )
-        {
-            if( ++$index === count( $this->_tableRow() ) )
-            {
-                $sql = $sql." ".$stringRow."=? " ;
-            }
-            else
-            {
-                $sql = $sql." ".$stringRow."=?, " ;
-            }
-        }
-        $sql = $sql." WHERE ".$this->_primaryKey()." = ".$_key." " ;
-        return $sql ;
-    }
-
-    
-
+    //------------------------------------------------------------------//
 }
 //===============================================================//
 ?>

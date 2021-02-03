@@ -42,7 +42,7 @@ else
 //===============================================================//
 
 $userList = [];
-if( $result = getUserArray( $offset , $limit ) )
+if( $result = findArrayUser( $offset , $limit ) )
 {
   $cr = 0;
   foreach( $result as $row )
