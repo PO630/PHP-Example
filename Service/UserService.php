@@ -11,8 +11,8 @@
 */
 //===============================================================//
 
-require '../Manager/connect.php';
-require '../Object/User.php' ;
+require_once '../Bin/Connect.php';
+require_once '../Object/User.php' ;
 
 //_______________________________________________________________//
 
@@ -91,12 +91,11 @@ function insertUser( $user )
     return 0;
 }
 
-
 //_______________________________________________________________//
 
 // Service connection utilisateur
 
-function ConnectUser( $emailUser , $passwordUser )
+function findUserToConnect( $emailUser , $passwordUser )
 {
     foreach( getAllUserArray() as $userRow )
     {
@@ -106,6 +105,38 @@ function ConnectUser( $emailUser , $passwordUser )
         }
     }
     return null ;
+}
+
+function connectUser( $user )
+{
+
+    if(session_status() == PHP_SESSION_NONE){
+        
+        session_start();
+        $_SESSION['user'] = $user ;
+        return 1 ;
+    }
+    return 0 ;
+}
+
+function disconnectUser( $user )
+{
+    if(session_status() == PHP_SESSION_NONE)
+    {
+        return 0 ;
+    }
+    unset($_SESSION); 
+    session_destroy(); 
+    return 1 ;
+}
+
+function isConnect()
+{
+    if( isset($_SESSION['user']) )
+    {
+        return 0 ;
+    }
+    return 1 ;
 }
 
 

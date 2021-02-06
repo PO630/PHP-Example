@@ -11,7 +11,7 @@
 */
 //===============================================================//
 
-require "OrmQuery.php" ;
+require_once "OrmQuery.php" ;
 
 class OrmClass extends OrmQuery
 {

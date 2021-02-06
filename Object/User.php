@@ -11,7 +11,7 @@
 */
 //===============================================================//
 
-require '../SqlGateOrm/OrmClass.php';
+require_once '../SqlGateOrm/OrmClass.php';
 
 // Hash key 
 define('DB_USER_HASH_KEY'    , 'DeusEx');
@@ -31,8 +31,7 @@ class User extends OrmClass
     {
         return [    $this->id_user          , $this->name_user ,
                     $this->password_user    , $this->email_user ,
-                    $this->avatar_user      , $this->last_connexion_user ,
-                    $this->ban_user
+                    $this->avatar_user      , $this->ban_user
                 ] ;
     }
 
@@ -45,8 +44,7 @@ class User extends OrmClass
     {
         return [    "id_user"       , "name_user" ,
                     "password_user" , "email_user" ,
-                    "avatar_user"   , "last_connexion_user" ,
-                    "ban_user" 
+                    "avatar_user"   , "ban_user" 
                 ] ;
     }
 
@@ -64,7 +62,6 @@ class User extends OrmClass
     private $password_user ;
     private $email_user ;
     private $avatar_user = "defaultAvatar.png";
-    private $last_connexion_user ;
     private $ban_user = 0 ;
 
     //------------------------------------------------------------------//
@@ -91,10 +88,6 @@ class User extends OrmClass
     {
         return $this->avatar_user ;
     }
-    public function getLastConnexion()
-    {
-        return $this->last_connexion_user ;
-    }
     public function getBan()
     {
         return $this->ban_user ;
@@ -112,9 +105,16 @@ class User extends OrmClass
     {
         $this->name_user = $value ;
     }
-    public function setPassword( $value )
+    private function setPassword( $value )
     {
+        // use by orm : don't hash password -> create size error.
         $this->password_user = $value ;
+    }
+    public function setNewPassword( $value )
+    {
+        // use by the user : hash new password 
+        $this->password_user = $value ;
+        $this->hash_password();
     }
     public function setEmail( $value )
     {
@@ -123,10 +123,6 @@ class User extends OrmClass
     public function setAvatar( $value )
     {
         $this->avatar_user = $value ;
-    }
-    public function setLastConnexion( $value )
-    {
-        $this->last_connexion_user = $value ;
     }
     public function setBan( $value )
     {
@@ -138,13 +134,13 @@ class User extends OrmClass
     // Hash function 
     public function hash_password()
     {
-        return md5( $this->getPassword()."".DB_USER_HASH_KEY ) ;
+        $this->setPassword( md5( $this->getPassword()."".DB_USER_HASH_KEY ) ) ;
     }
 
     // 
     public function is_password( $passwordUser )
     {
-        if( $this->hash_password() === md5( $passwordUser."".DB_USER_HASH_KEY ) )
+        if( $this->getPassword() === md5( $passwordUser."".DB_USER_HASH_KEY ) )
         {
             return true ;
         }
@@ -165,14 +161,5 @@ class User extends OrmClass
 
 }
 
-
-//===============================================================//
-// Example use
-/* 
-    // Single value 
-    $user = $pdo->query('SELECT * FROM user LIMIT 1')->fetchObject('User');
-    // Array values
-    $users = $pdo->query('SELECT * FROM user')->fetchAll(PDO::FETCH_CLASS, 'User');
-*/
 //===============================================================//
 ?>

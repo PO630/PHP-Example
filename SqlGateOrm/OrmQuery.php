@@ -87,7 +87,7 @@ class OrmQuery
         return $sql ;
     }
 
-    public function queryInsert( )
+    public function queryInsert()
     {
         $index = 0 ;
         $sql = "INSERT INTO ".$this->_table()." (" ;

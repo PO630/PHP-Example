@@ -13,7 +13,7 @@
 */
 //===============================================================//
 
-require '../Service/UserService.php';
+require_once '../Service/UserService.php';
 
 if( empty($_GET['id']) )
 {
