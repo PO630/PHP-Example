@@ -1,0 +1,51 @@
+/*
+//===============================================================//
+
+  Type    : Style
+  Auteur  : Marcheix François-Xavier
+  Date    : 10/02/2021
+
+                          ^ ^
+                        (=o o=)
+                          \_/
+
+//===============================================================//
+*/
+
+
+/*===============================================================*/
+                    /* Main Background */
+body 
+{
+    font-family: sans-serif;
+    background: linear-gradient(-50deg, #3a6186, #89253e);
+}
+
+
+/*===============================================================*/
+                    /* The alert message box */
+.alertBox
+{
+    padding: 1.1em;
+    background: linear-gradient(-50deg, #3172af, #bb1c44);
+    color: white;
+}
+  
+/* The close button */
+.closebtnAlertBox {
+    margin-left: 1em;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 1.1em;
+    line-height: 1em;
+    cursor: pointer;
+    transition: 0.3s;
+}
+  
+/* When moving the mouse over the close button */
+.closebtnAlertBox:hover {
+    color: black;
+}
+
+/*===============================================================*/

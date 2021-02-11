@@ -11,7 +11,7 @@
 */
 //===============================================================//
 
-require_once '../SqlGateOrm/OrmClass.php';
+require_once  __DIR__.'../../SqlGateOrm/OrmClass.php';
 
 // Hash key 
 define('DB_USER_HASH_KEY'    , 'DeusEx');

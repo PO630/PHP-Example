@@ -11,8 +11,8 @@
 */
 //===============================================================//
 
-require_once '../Bin/Connect.php';
-require_once '../Object/User.php' ;
+require_once __DIR__.'../../Bin/Connect.php';
+require_once __DIR__.'../../Object/User.php' ;
 
 //_______________________________________________________________//
 
@@ -97,7 +97,7 @@ function insertUser( $user )
 
 function findUserToConnect( $emailUser , $passwordUser )
 {
-    foreach( getAllUserArray() as $userRow )
+    foreach( findAllUser() as $userRow )
     {
         if( $userRow->is_password($passwordUser) && $userRow->is_email( $emailUser ) )
         {
@@ -134,9 +134,9 @@ function isConnect()
 {
     if( isset($_SESSION['user']) )
     {
-        return 0 ;
+        return 1 ;
     }
-    return 1 ;
+    return 0 ;
 }
 
 

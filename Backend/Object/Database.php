@@ -11,7 +11,7 @@
 */
 //===============================================================//
 
-require_once '../SqlGateOrm/OrmClass.php';
+require_once  __DIR__.'../../SqlGateOrm/OrmClass.php';
 
 // Information sur la base de donnée principalement utilisé.
 define('DATABASE_HOST'    , 'localhost');

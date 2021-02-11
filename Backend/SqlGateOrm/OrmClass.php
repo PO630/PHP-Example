@@ -11,7 +11,7 @@
 */
 //===============================================================//
 
-require_once "OrmQuery.php" ;
+require_once  __DIR__.'../OrmQuery.php' ;
 
 class OrmClass extends OrmQuery
 {
