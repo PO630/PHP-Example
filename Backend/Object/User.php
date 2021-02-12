@@ -140,7 +140,7 @@ class User extends OrmClass
     // 
     public function is_password( $passwordUser )
     {
-        if( $this->getPassword() === md5( $passwordUser."".DB_USER_HASH_KEY ) )
+        if( strcmp( $this->getPassword() , md5( $passwordUser."".DB_USER_HASH_KEY ) ) === 0 )
         {
             return true ;
         }
@@ -150,7 +150,7 @@ class User extends OrmClass
     // 
     public function is_email( $emailUser )
     {
-        if( $this->getEmail() === md5( $emailUser ) )
+        if( strcmp( $this->getEmail() , $emailUser  ) === 0 )
         {
             return true ;
         }

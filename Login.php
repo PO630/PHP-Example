@@ -11,33 +11,36 @@
 
 //===============================================================//
 -->
+
+<?php
+  require_once "Backend/Service/UserService.php" ;
+  // Déja Connecté
+  if( isConnect() )
+  {
+    header('Location: ./Index.php');
+    exit();
+  }
+  $findError = false ;
+  // Appliaction de la méthod POST 
+  if( isset($_POST['input_email']) and isset($_POST['input_password']) )
+  {
+    $newUser = findUserToConnect( $_POST['input_email'] , $_POST['input_password'] ) ;
+    if( !is_null( $newUser ) )
+    {
+      connectUser( $newUser ) ;
+      header('Location: ./Index.php');
+      exit();
+    }
+    else
+    {
+      $findError = true ;
+    }
+  }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
-
-  <?php
-    require_once "Backend/Service/UserService.php" ;
-    // Déja Connecté
-    if( isConnect() )
-    {
-      header('Location: ./index.php');
-    }
-    $findError = 0 ;
-    // Appliaction de la méthod POST 
-    if( isset($_POST['input_email']) and isset($_POST['input_password']) )
-    {
-      $newUser = findUserToConnect( $_POST['input_email'] , $_POST['input_password'] ) ;
-      if( $newUser !== null )
-      {
-        connectUser( $newUser ) ;
-        header('Location: ./index.php');
-      }
-      else
-      {
-        $findError = 1 ;
-      }
-
-    }
-  ?>
 
   <head>
     <meta charset="utf-8">

@@ -10,8 +10,9 @@ Simple site internet avec Backend sous PHP et Frontend.
 
 Object          | Service       | Controller
 ------------    | ------------- | -------------
-Database        | todo          | todo 
+Database        | X             | X 
 User            | UserService   | ListUser , DeleteUser
+Session         | instance      | X
 
 ## Base de donnée
 
@@ -31,7 +32,6 @@ OrmClass        | Implémente tout les fonctions principales
 ## TO DO
 
 - [ ] Gestion des images utilisateur
-- [x] Connection utilisateur
 
 ---
 
@@ -42,7 +42,8 @@ OrmClass        | Implémente tout les fonctions principales
 Page            | Fonction
 ------------    | ------------- 
 Index.php       | Page principale du site web
-Login.php       | Menu de connexion utilisateur
+Login.php       | Menu de connexion utilisateur, retour index.php
+Logout.php      | Déconnexion utilisateur, retour index.php
 
 ## Javascript
 
@@ -54,7 +55,6 @@ AlertBox        | Gestion des boites d'alerte utilisateur
 
 - [ ] Page d'incription utilisateur
 - [ ] Menu Principale
-- [ ] Deconnexion utlisateur
 
 ---
 

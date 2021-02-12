@@ -11,6 +11,10 @@
 
 //===============================================================//
 -->
+<?php
+    require_once "Backend/Service/UserService.php" ;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,7 +26,23 @@
 
     <body>
 
-    
+    <div>
+      <?php
+        if( isConnect() )
+        {
+          echo getUserSession()->getName() ;
+          ?>
+          <a href="Logout.php">Logout</a>
+          <?php
+        }
+        else
+        {
+          ?>
+          <a href="Login.php">Login</a>
+          <?php
+        }
+      ?>
+    </div>
 
     </body>
 

@@ -11,8 +11,9 @@
 */
 //===============================================================//
 
-require_once __DIR__.'../../Bin/Connect.php';
+require_once __DIR__.'../../Bin/Connect.php' ;
 require_once __DIR__.'../../Object/User.php' ;
+require_once __DIR__.'../../Object/Session.php' ;
 
 //_______________________________________________________________//
 
@@ -109,34 +110,41 @@ function findUserToConnect( $emailUser , $passwordUser )
 
 function connectUser( $user )
 {
-
-    if(session_status() == PHP_SESSION_NONE){
-        
-        session_start();
-        $_SESSION['user'] = $user ;
-        return 1 ;
-    }
-    return 0 ;
+    Session::getInstance()->startSession() ;
+    Session::getInstance()->__set( 'userId' , $user->getId() ) ;
+    return 1 ;
 }
 
-function disconnectUser( $user )
+function getUserSession()
 {
-    if(session_status() == PHP_SESSION_NONE)
+    if( Session::getInstance()->__isset('userId') )
     {
-        return 0 ;
+        return findUser( Session::getInstance()->__get('userId') ) ;
     }
-    unset($_SESSION); 
-    session_destroy(); 
-    return 1 ;
+    return NULL ;
+}
+
+function disconnectUser()
+{
+    if( !Session::getInstance()->sessionState() )
+    {
+        return true ;
+    }
+    Session::getInstance()->destroy() ; 
+    return false ;
 }
 
 function isConnect()
 {
-    if( isset($_SESSION['user']) )
+    if( !Session::getInstance()->sessionState() )
     {
-        return 1 ;
+        return false ;
     }
-    return 0 ;
+    if( !Session::getInstance()->__isset('userId') )
+    {
+        return false ;
+    }
+    return true ;
 }
 
 
