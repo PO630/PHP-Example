@@ -80,7 +80,7 @@ function updateUser( $user )
     $pdo = PDO_connect() ;
     $user->update( $pdo , $user->getId() ) ;
     $pdo = null ;
-    return 0;
+    return $user;
 }
 
 function insertUser( $user )
@@ -89,7 +89,7 @@ function insertUser( $user )
     $user->setId( newIdUser() );
     $user->insert( $pdo ) ;
     $pdo = null ;
-    return 0;
+    return $user;
 }
 
 //_______________________________________________________________//
@@ -145,6 +145,29 @@ function isConnect()
         return false ;
     }
     return true ;
+}
+
+//_______________________________________________________________//
+
+function createNewUser( $email , $password , $name )
+{
+    $user = new User();
+    $user->setEmail( $email ) ;
+    $user->setNewPassword( $password ) ;
+    $user->setName( $name ) ;
+    foreach( findAllUser() as $userRow )
+    {
+        if( $userRow->is_email( $email ) )
+        {
+            return -1 ;
+        }
+        if( $userRow->is_name( $name ) )
+        {
+            return -2 ;
+        }
+    }
+    insertUser( $user ) ;
+    return 1 ;
 }
 
 

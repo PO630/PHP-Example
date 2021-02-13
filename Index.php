@@ -21,28 +21,15 @@
     <head>
         <meta charset="utf-8">
         <title>Main Menu</title>
+        <link rel="icon" type="image/png" href="Image/Logo.png">
         <link rel="stylesheet" href="Css/MainStyle.css">
     </head>
 
     <body>
 
-    <div>
-      <?php
-        if( isConnect() )
-        {
-          echo getUserSession()->getName() ;
-          ?>
-          <a href="Logout.php">Logout</a>
-          <?php
-        }
-        else
-        {
-          ?>
-          <a href="Login.php">Login</a>
-          <?php
-        }
-      ?>
-    </div>
+    <?php
+      include "PHP-include/NavigationBar.php" ;
+    ?>
 
     </body>
 

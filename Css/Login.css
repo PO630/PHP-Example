@@ -63,3 +63,11 @@
 .box input[type = "submit"]:hover{
   background: #3a6186;
 }
+.box p
+{
+  color: white;
+}
+.box a
+{
+  color: #89253e;
+}

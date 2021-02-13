@@ -44,6 +44,7 @@ Page            | Fonction
 Index.php       | Page principale du site web
 Login.php       | Menu de connexion utilisateur, retour index.php
 Logout.php      | Déconnexion utilisateur, retour index.php
+SignIn.php      | Inscription utilisateur.
 
 ## Javascript
 
@@ -51,10 +52,17 @@ Script          | Fonction
 ------------    | ------------- 
 AlertBox        | Gestion des boites d'alerte utilisateur
 
+## PHP-include
+
+Include         | Fonction
+------------    | ------------- 
+NavigationBar   | Bar de navigation du site web
+
 ## TO DO 
 
-- [ ] Page d'incription utilisateur
-- [ ] Menu Principale
+- [X] Page d'incription utilisateur.
+- [ ] Menu Principale.
+- [ ] Page profile utilisateur.
 
 ---
 

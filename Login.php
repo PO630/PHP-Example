@@ -45,6 +45,7 @@
   <head>
     <meta charset="utf-8">
     <title>Login</title>
+    <link rel="icon" type="image/png" href="Image/Logo.png">
     <link rel="stylesheet" href="Css/MainStyle.css">
     <link rel="stylesheet" href="Css/Login.css">
   </head>
@@ -56,6 +57,9 @@
       <input type="text"      name="input_email"    placeholder="Email">
       <input type="password"  name="input_password" placeholder="Password">
       <input type="submit"    name="input_submit"   value="Login">
+      <p>
+        No account, create one with <a href="SignIn.php" >registration</a>
+      </p>
       <?php 
         if( $findError )
         {

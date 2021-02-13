@@ -57,10 +57,10 @@ class User extends OrmClass
 
     // Attribut
 
-    private $id_user = 0 ;
-    private $name_user ;
-    private $password_user ;
-    private $email_user ;
+    private $id_user = 0 ;                      // MAIN KEY
+    private $name_user ;                        // UNIQUE
+    private $password_user ;                    // MDP5
+    private $email_user ;                       // UNIQUE
     private $avatar_user = "defaultAvatar.png";
     private $ban_user = 0 ;
 
@@ -151,6 +151,16 @@ class User extends OrmClass
     public function is_email( $emailUser )
     {
         if( strcmp( $this->getEmail() , $emailUser  ) === 0 )
+        {
+            return true ;
+        }
+        return false ;
+    }
+
+    // 
+    public function is_name( $nameUser )
+    {
+        if( strcmp( $this->getName() , $nameUser  ) === 0 )
         {
             return true ;
         }
