@@ -88,6 +88,10 @@ class User extends OrmClass
     {
         return $this->avatar_user ;
     }
+    public function getAvatarSource()
+    {
+        return __DIR__.'/../Image/'.$this->avatar_user;
+    }
     public function getBan()
     {
         return $this->ban_user ;

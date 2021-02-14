@@ -45,6 +45,7 @@ Index.php       | Page principale du site web
 Login.php       | Menu de connexion utilisateur, retour index.php
 Logout.php      | Déconnexion utilisateur, retour index.php
 SignIn.php      | Inscription utilisateur.
+Profile.php     | Modification des informations utilisateur.
 
 ## Javascript
 

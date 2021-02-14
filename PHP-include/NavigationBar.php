@@ -19,8 +19,6 @@
 ?>
     <div class="navigationBar">
 
-        <img class="navigationLogo" src="Image/Logo.png" alt="Logo web site" >
-
         <a class="navigationItem" href="Index.php">Home</a>
         <a class="navigationItem" href="#news">News</a>
         <a class="navigationItem" href="#contact">Contact</a>
@@ -30,7 +28,7 @@
         {
             ?>
             <a class="navigationAccount" href="Logout.php">Logout</a>
-            <a class="navigationAccount" href="#Profile">
+            <a class="navigationAccount" href="Profile.php">
                 <?php
                     echo $userNavigation->getName() ;
                 ?>
