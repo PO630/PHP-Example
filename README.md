@@ -31,7 +31,7 @@ OrmClass        | Implémente tout les fonctions principales
 
 ## TO DO
 
-- [ ] Gestion des images utilisateur
+- [X] Gestion des images utilisateur
 
 ---
 
@@ -62,8 +62,8 @@ NavigationBar   | Bar de navigation du site web
 ## TO DO 
 
 - [X] Page d'incription utilisateur.
-- [ ] Menu Principale.
-- [ ] Page profile utilisateur.
+- [X] Menu Principale.
+- [X] Page profile utilisateur.
 
 ---
 

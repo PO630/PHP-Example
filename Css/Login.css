@@ -13,12 +13,9 @@
 */
 
 .box{
-  width: 50%;
+  width:  100%;
   padding: 2em;
-  top: 50%;
-  left: 50%;
-  transform: translate(50%,40%);
-  background: #191919;
+  background: #191919d8;
   text-align: center;
 }
 .box h1{
@@ -32,7 +29,7 @@
   display: block;
   margin: 1em auto;
   text-align: center;
-  border: 2px solid #89253e;
+  border: 2px solid hsl(0, 100%, 27%);
   padding: 1em 1em;
   width: 65%;
   outline: none;
@@ -68,5 +65,5 @@
 }
 .box a
 {
-  color: #89253e;
+  color: hsl(0, 100%, 27%);
 }

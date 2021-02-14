@@ -14,8 +14,7 @@
 class OrmQuery
 {
     //------------------------------------------------------------------//
-
-    // Orm link database
+                            // Orm link database //
 
     public function _table()
     {
@@ -33,8 +32,7 @@ class OrmQuery
     }
 
     //------------------------------------------------------------------//
-
-    // Query Read only
+                            // Query Read only //
 
     public function queryNewId()
     {
@@ -61,7 +59,47 @@ class OrmQuery
         return "SELECT * FROM ".$this->_table()." LIMIT {$limit}  OFFSET {$offset} ";
     }
 
-    // Query write
+    public function queryFindExt( $_column , $_operator , $_value )
+    {
+        $index = 0 ;
+        $sql = "SELECT * FROM ".$this->_table()." WHERE " ;
+        foreach( $_column as $column )
+        {
+            if( ( $index + 1 ) === count( $_column ) )
+            {
+                $sql = $sql." ".$column[$index]." ".$_operator[$index]." ".$_value[$index]." " ;
+            }
+            else
+            {
+                $sql = $sql." ".$column[$index]." ".$_operator[$index]." ".$_value[$index]." AND " ;
+            }
+            $index++;
+        }
+        return $sql ;
+    }
+
+    public function queryFindExtArray( $_column , $_operator , $_value , $offset , $limit )
+    {
+        $index = 0 ;
+        $sql = "SELECT * FROM ".$this->_table()." WHERE " ;
+        foreach( $_column as $column )
+        {
+            if( ( $index + 1 ) === count( $_column ) )
+            {
+                $sql = $sql." ".$column[$index]." ".$_operator[$index]." ".$_value[$index]." " ;
+            }
+            else
+            {
+                $sql = $sql." ".$column[$index]." ".$_operator[$index]." ".$_value[$index]." AND " ;
+            }
+            $index++;
+        }
+        return $sql." LIMIT {$limit}  OFFSET {$offset}" ;
+    }
+
+
+    //------------------------------------------------------------------//
+                            // Query write //
 
     public function queryDelete( $_key )
     {

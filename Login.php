@@ -52,6 +52,16 @@
 
   <body>
 
+    <!-- Header -->
+    <div class="header">
+      <h1>My Website</h1>
+      <img src="Image/Logo.png" alt="Logo web site" >
+    </div>
+
+    <?php
+      include "PHP-include/NavigationBar.php" ;
+    ?>
+
     <form class="box" method="POST" action="Login.php" >
       <h1>Login</h1>
       <input type="text"      name="input_email"    placeholder="Email">
@@ -72,6 +82,7 @@
         }
       ?>
     </form>
+    
   </body>
 
 <!-- Insert Js -->

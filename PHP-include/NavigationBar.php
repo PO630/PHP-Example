@@ -38,6 +38,7 @@
         else
         {
             ?>
+            <a class="navigationAccount" href="SignIn.php">SignIn</a>
             <a class="navigationAccount" href="Login.php">Login</a>
             <?php
         }

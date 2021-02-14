@@ -21,7 +21,12 @@
       exit();
     }
     //
-
+    if( isset( $_FILES['input_file'] ) )
+    {
+      $userNavigation = getUserSession() ;
+      $userNavigation->uploadAvatar( $_FILES['input_file'] ) ;
+      updateUser( $userNavigation ) ;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -36,16 +41,29 @@
     
     <body>
 
+    <!-- Header -->
+    <div class="header">
+      <h1>My Website</h1>
+      <img src="Image/Logo.png" alt="Logo web site" >
+    </div>
+
     <?php
       include "PHP-include/NavigationBar.php" ;
-      // $userNavigation include in PHP-include/NavigationBar.php
     ?>
 
     <div class="row">
     
         <div class="side" style="text-align: center;" >
-            <img class="userAvatar" src="Image/Logo.png">
+
+            <img class="userAvatar" src="<?php echo $userNavigation->getAvatarSource() ; ?>" >
+
+            <form method='post' action='' enctype='multipart/form-data'>
+              <input type='file' name='input_file' />
+              <input type='submit' value='Submit' name='submit_file' />
+            </form>
+
         </div>
+
         <div class="main">
             <p>
             <label for="email"><b>Email : <?php echo $userNavigation->getEmail() ; ?> </b></label>
@@ -53,10 +71,12 @@
             <p>
             <label for="name" ><b>Name  : <?php echo $userNavigation->getName() ; ?>  </b></label>
             </p>
-            <label for="name" ><b>SCR  : <?php echo $userNavigation->getAvatarSource() ; ?>  </b></label>
-            <img class="userAvatar" <?php echo $userNavigation->getAvatarSource() ; ?> >
         </div>
 
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
     </div>
 
     </body>

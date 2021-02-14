@@ -59,6 +59,20 @@ class OrmClass extends OrmQuery
         return $classArray ;
     }
 
+    public function findAllExt( $pdo , $_column , $_operator , $_value )
+    {
+        $classArray = $pdo->query( 
+            $this->queryFindExt( $_column , $_operator , $_value ) )->fetchAll( PDO::FETCH_CLASS , $this->_class() );
+        return $classArray ;
+    }
+    
+    public function findAllExtArray( $pdo , $_column , $_operator , $_value , $offset , $limit )
+    {
+        $classArray = $pdo->query( 
+            $this->queryFindExt( $_column , $_operator , $_value , $offset , $limit ) )->fetchAll( PDO::FETCH_CLASS , $this->_class() );
+        return $classArray ;
+    }
+
     //------------------------------------------------------------------//
 
     public function delete( $mysql , $id )
